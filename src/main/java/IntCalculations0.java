@@ -1,12 +1,12 @@
 public class IntCalculations0 {
-    public static double getDataTypesIntA() {
+    public static int getDataTypesIntA() {
         // метод должен вернуть значение 1, т.е. остаток от целочисленного деления
         int a = 0;
         a = 5 % 2;
         return a;
     }
 
-    public static double getDataTypesIntB() {
+    public static int getDataTypesIntB() {
         // метод должен вернуть значение 2, т.е. просто выполнить целочисленное деление
         int b = 0;
         b = 5 / 2;
