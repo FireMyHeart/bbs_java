@@ -34,4 +34,4 @@ public class LoginTest extends BaseTest {
         String text = driver.findElement(By.cssSelector("h3[data-test='error']")).getText();
         assertEquals(text, "Epic sadface: Username and password do not match any user in this service");
     }
-    }
+}
