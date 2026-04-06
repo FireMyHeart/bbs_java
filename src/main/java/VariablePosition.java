@@ -5,5 +5,4 @@ public class VariablePosition {
         return b;
     }
 }
-
 // тут все верно, просто b будет таким же, как a.

@@ -20,7 +20,6 @@ public class IntCalculations0 {
         return a;
     }
 
-    // снова попросила AI, как выводить правильно для самопроверки, т.к. не понимаю до конца синтаксис
     public static void main(String[] args) {
         System.out.println("A = " + getDataTypesIntA());
         System.out.println("B = " + getDataTypesIntB());
