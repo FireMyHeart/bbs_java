@@ -1,6 +1,5 @@
 package tests;
 
-import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
@@ -21,6 +20,14 @@ public class LoginTest extends BaseTest {
         loginPage.login("locked_out_user", "secret_sauce");
         assertTrue(loginPage.isErrorMsgDisplayed(), "Сообщение об ошибке не появилось");
         assertEquals(loginPage.getErrorMsgText(), "Epic sadface: Sorry, this user has been locked out.");
+    }
+
+    @Test
+    public void checkEmptyLogin() {
+        loginPage.open();
+        loginPage.login("", "secret_sauce");
+        assertTrue(loginPage.isErrorMsgDisplayed(), "Сообщение об ошибке не появилось");
+        assertEquals(loginPage.getErrorMsgText(), "Epic sadface: Username is required");
     }
 
     @Test
