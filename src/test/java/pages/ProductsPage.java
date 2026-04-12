@@ -6,8 +6,12 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class ProductsPage extends BasePage {
     private final By pageTitle = By.cssSelector("[data-test='title']");
-    private final By addToCartBtn = By.xpath("//div[text()='Sauce Labs Backpack']/ancestor::div[@data-test='inventory-item-description']//button[text()='Add to cart']");
-    private final By removeFromCartBtn = By.xpath("//div[text()='Sauce Labs Backpack']/ancestor::div[@data-test='inventory-item-description']//button[text()='Remove']");
+    private final By addToCartBtn = By.xpath(String.format(
+            "//div[text()='%s']/ancestor::div[@data-test='inventory-item-description']//button[text()='Add to cart']",
+            SAUCE_LABS_BACKPACK));
+    private final By removeFromCartBtn = By.xpath(String.format(
+            "//div[text()='%s']/ancestor::div[@data-test='inventory-item-description']//button[text()='Remove']",
+            SAUCE_LABS_BACKPACK));
     private final By cartLinkCount = By.cssSelector("a[data-test='shopping-cart-link']");
 
     public ProductsPage(WebDriver driver) {

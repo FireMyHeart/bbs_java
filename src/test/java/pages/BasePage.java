@@ -10,6 +10,7 @@ public class BasePage {
     protected WebDriverWait wait;
 
     public static final String BASE_URL = "https://www.saucedemo.com/";
+    public static final String SAUCE_LABS_BACKPACK = "Sauce Labs Backpack";
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
