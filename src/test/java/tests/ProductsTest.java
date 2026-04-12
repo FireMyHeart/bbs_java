@@ -18,7 +18,7 @@ public class ProductsTest extends BaseTest {
     }
 
     @Test
-    public void checkCartIsOpen() {
+    public void checkCartLink() {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
         productsPage.addToCart();
