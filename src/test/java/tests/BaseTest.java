@@ -10,19 +10,21 @@ import pages.LoginPage;
 import pages.ProductsPage;
 
 import java.time.Duration;
+import java.util.List;
 
 public class BaseTest {
     public WebDriver driver;
     LoginPage loginPage;
     ProductsPage productsPage;
     CartPage cartPage;
+    protected List<String> productsList = List.of("Sauce Labs Onesie", "Sauce Labs Bike Light", "Sauce Labs Bolt T-Shirt");
 
     @BeforeMethod
     public void setup() {
         // System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("start-maximized");
-        options.addArguments("headless");
+        // options.addArguments("headless");
         driver = new ChromeDriver(options);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         loginPage = new LoginPage(driver);
