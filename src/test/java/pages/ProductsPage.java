@@ -2,17 +2,48 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class ProductsPage {
-    WebDriver driver;
+public class ProductsPage extends BasePage {
+    public static final String ADD_TO_CART_PATTERN =
+            "//div[text()='%s']/ancestor::div[@data-test='inventory-item-description']//button[text()='Add to cart']";
+    public static final String REMOVE_FROM_CART_PATTERN =
+            "//div[text()='%s']/ancestor::div[@data-test='inventory-item-description']//button[text()='Remove']";
     private final By pageTitle = By.cssSelector("[data-test='title']");
+    private final By cartLinkBadge = By.cssSelector("span.shopping_cart_badge");
 
     public ProductsPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
     public String getTitle() {
         return driver.findElement(pageTitle).getText();
     }
 
+    public boolean titleIsVisible() {
+        return driver.findElement(pageTitle).isDisplayed();
+    }
+
+    public void addToCart(final String productName) {
+        By addToCartBtn = By.xpath(String.format(ADD_TO_CART_PATTERN, productName));
+        driver.findElement(addToCartBtn).click();
+    }
+
+    public boolean removeBtnIsVisible(final String productName) {
+        By removeFromCartBtn = By.xpath(REMOVE_FROM_CART_PATTERN.formatted(productName));
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(removeFromCartBtn)).isDisplayed();
+    }
+
+    public String counterValue() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(cartLinkBadge)).isDisplayed();
+        return driver.findElement(cartLinkBadge).getText();
+    }
+
+    public void openCart() {
+        driver.findElement(cartLinkBadge).click();
+    }
+
+    public String counterColour() {
+        return driver.findElement(cartLinkBadge).getCssValue("background-color");
+    }
 }

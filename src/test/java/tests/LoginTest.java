@@ -1,5 +1,6 @@
 package tests;
 
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
@@ -14,27 +15,21 @@ public class LoginTest extends BaseTest {
         assertEquals(productsPage.getTitle(), "Products");
     }
 
-    @Test
-    public void checkLockedOutLogin() {
+    @Test(dataProvider = "incorrectData")
+    public void checkLockedOutLogin(String login, String password, String ErrorMsg) {
         loginPage.open();
-        loginPage.login("locked_out_user", "secret_sauce");
+        loginPage.login(login, password);
         assertTrue(loginPage.isErrorMsgDisplayed(), "Сообщение об ошибке не появилось");
-        assertEquals(loginPage.getErrorMsgText(), "Epic sadface: Sorry, this user has been locked out.");
+        assertEquals(loginPage.getErrorMsgText(), ErrorMsg);
     }
 
-    @Test
-    public void checkEmptyLogin() {
-        loginPage.open();
-        loginPage.login("", "secret_sauce");
-        assertTrue(loginPage.isErrorMsgDisplayed(), "Сообщение об ошибке не появилось");
-        assertEquals(loginPage.getErrorMsgText(), "Epic sadface: Username is required");
-    }
-
-    @Test
-    public void checkIncorrectLogin() {
-        loginPage.open();
-        loginPage.login("test_user", "secret_sauce");
-        assertTrue(loginPage.isErrorMsgDisplayed(), "Сообщение об ошибке не появилось");
-        assertEquals(loginPage.getErrorMsgText(), "Epic sadface: Username and password do not match any user in this service");
+    @DataProvider(name = "incorrectData")
+    public Object[][] loginIncorrectData(){
+        return new Object[][]{
+                {"locked_out_user", "secret_sauce", "Epic sadface: Sorry, this user has been locked out."},
+                {"", "secret_sauce", "Epic sadface: Username is required"},
+                {"standard_user", "", "Epic sadface: Password is required"},
+                {"test_user", "secret_sauce", "Epic sadface: Username and password do not match any user in this service"}
+        };
     }
 }
