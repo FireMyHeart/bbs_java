@@ -10,12 +10,14 @@ import pages.LoginPage;
 import pages.ProductsPage;
 
 import java.time.Duration;
+import java.util.List;
 
 public class BaseTest {
     public WebDriver driver;
     LoginPage loginPage;
     ProductsPage productsPage;
     CartPage cartPage;
+    protected List<String> productsList = List.of("Sauce Labs Onesie", "Sauce Labs Bike Light", "Sauce Labs Bolt T-Shirt");
 
     @BeforeMethod
     public void setup() {

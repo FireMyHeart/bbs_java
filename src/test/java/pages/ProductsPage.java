@@ -5,10 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class ProductsPage extends BasePage {
-    public static final String ADD_TO_CART_PATTERN =
-            "//div[text()='%s']/ancestor::div[@data-test='inventory-item-description']//button[text()='Add to cart']";
-    public static final String REMOVE_FROM_CART_PATTERN =
-            "//div[text()='%s']/ancestor::div[@data-test='inventory-item-description']//button[text()='Remove']";
+    public static final String ADD_TO_CART_PATTERN = "//div[text()='%s']/ancestor::div[@data-test='inventory-item-description']//button[text()='Add to cart']";
+    public static final String REMOVE_FROM_CART_PATTERN = "//div[text()='%s']/ancestor::div[@data-test='inventory-item-description']//button[text()='Remove']";
     private final By pageTitle = By.cssSelector("[data-test='title']");
     private final By cartLinkBadge = By.cssSelector("span.shopping_cart_badge");
 
@@ -34,9 +32,23 @@ public class ProductsPage extends BasePage {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(removeFromCartBtn)).isDisplayed();
     }
 
+    public boolean addToCartBtnIsVisible(final String productName) {
+        By addToCartBtn = By.xpath(ADD_TO_CART_PATTERN.formatted(productName));
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(addToCartBtn)).isDisplayed();
+    }
+
+    public void removeFromCart(final String productName) {
+        By removeFromCartBtn = By.xpath(REMOVE_FROM_CART_PATTERN.formatted(productName));
+        driver.findElement(removeFromCartBtn).click();
+    }
+
     public String counterValue() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(cartLinkBadge)).isDisplayed();
         return driver.findElement(cartLinkBadge).getText();
+    }
+
+    public boolean CartBadgeInvisibility() {
+        return wait.until(ExpectedConditions.invisibilityOfElementLocated(cartLinkBadge));
     }
 
     public void openCart() {
