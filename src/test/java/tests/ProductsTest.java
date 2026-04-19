@@ -2,8 +2,6 @@ package tests;
 
 import org.testng.annotations.Test;
 
-import java.time.Duration;
-
 import static org.testng.Assert.*;
 import static pages.BasePage.ABOUT_URL;
 import static pages.BasePage.ITEM_NAME;
