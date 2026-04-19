@@ -47,12 +47,8 @@ public class ProductsPage extends BasePage {
         return driver.findElement(cartLinkBadge).getText();
     }
 
-    public boolean CartBadgeInvisibility() {
+    public boolean cartBadgeInvisibility() {
         return wait.until(ExpectedConditions.invisibilityOfElementLocated(cartLinkBadge));
-    }
-
-    public void openCart() {
-        driver.findElement(cartLinkBadge).click();
     }
 
     public String counterColour() {

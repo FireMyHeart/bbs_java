@@ -14,7 +14,7 @@ public class CartTest extends BaseTest {
         loginPage.login("standard_user", "secret_sauce");
         productsPage.addToCart(ITEM_NAME);
         assertEquals(productsPage.counterValue(), "1");
-        productsPage.openCart();
+        productsPage.navigationPanel.openCart();
         assertEquals(cartPage.getTitle(), "Your Cart", "Название страницы не совпало");
         assertTrue(cartPage.itemsBlockIsVisible());
         assertEquals(cartPage.itemsCount(), 1, "кол-во товаров в корзине не равно 1");
@@ -29,12 +29,22 @@ public class CartTest extends BaseTest {
             productsPage.addToCart(product);
         }
         assertEquals(productsPage.counterValue(), "3");
-        productsPage.openCart();
+        productsPage.navigationPanel.openCart();
         assertEquals(cartPage.getTitle(), "Your Cart");
         assertFalse(cartPage.getProductsNames().isEmpty());
         assertEquals(cartPage.getProductsNames().size(), 3);
         List<String> actualProducts = cartPage.getProductsNames();
         assertEquals(actualProducts.size(), productsList.size());
         assertTrue(actualProducts.containsAll(productsList));
+    }
+
+    @Test
+    public void checkReturnToAllProductsPage() {
+        loginPage.open();
+        loginPage.login("standard_user", "secret_sauce");
+        productsPage.navigationPanel.openCart();
+        productsPage.navigationPanel.openMenu();
+        productsPage.navigationPanel.openProductsPage();
+        assertEquals(productsPage.getTitle(), "Products");
     }
 }

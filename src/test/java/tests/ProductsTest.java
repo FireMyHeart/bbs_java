@@ -2,8 +2,10 @@ package tests;
 
 import org.testng.annotations.Test;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
+import java.time.Duration;
+
+import static org.testng.Assert.*;
+import static pages.BasePage.ABOUT_URL;
 import static pages.BasePage.ITEM_NAME;
 
 public class ProductsTest extends BaseTest {
@@ -42,7 +44,7 @@ public class ProductsTest extends BaseTest {
         for (String product : productsList) {
             assertTrue(productsPage.addToCartBtnIsVisible(product));
         }
-        assertTrue(productsPage.CartBadgeInvisibility());
+        assertTrue(productsPage.cartBadgeInvisibility());
     }
 
     @Test
@@ -51,7 +53,33 @@ public class ProductsTest extends BaseTest {
         loginPage.login("standard_user", "secret_sauce");
         productsPage.addToCart(ITEM_NAME);
         assertEquals(productsPage.counterValue(), "1");
-        productsPage.openCart();
+        productsPage.navigationPanel.openCart();
         assertEquals(cartPage.getTitle(), "Your Cart");
+    }
+
+    @Test
+    public void checkResetAppState() {
+        loginPage.open();
+        loginPage.login("standard_user", "secret_sauce");
+        productsPage.addToCart(ITEM_NAME);
+        assertEquals(productsPage.counterValue(), "1");
+        productsPage.navigationPanel.openMenu();
+        productsPage.navigationPanel.resetAppState();
+        assertTrue(productsPage.cartBadgeInvisibility());
+        assertFalse(productsPage.removeBtnIsVisible(ITEM_NAME));
+        /*
+        вот из-за этого тест падает. Я думаю, что это баг. Потому что раз состояние корзины сбрасывается и в корзине
+        пусто становится, то и кнопка Remove должна замениться Add to cart, а это происходит только после рефреша страницы.
+        Надо было заложить рефреш страницы при нажатии этой кнопки
+         */
+    }
+
+    @Test
+    public void checkSwitchToAboutPage() {
+        loginPage.open();
+        loginPage.login("standard_user", "secret_sauce");
+        productsPage.navigationPanel.openMenu();
+        productsPage.navigationPanel.openAboutPage();
+        assertTrue(productsPage.isCurrentUrl(ABOUT_URL));
     }
 }

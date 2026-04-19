@@ -32,4 +32,13 @@ public class LoginTest extends BaseTest {
                 {"test_user", "secret_sauce", "Epic sadface: Username and password do not match any user in this service"}
         };
     }
+
+    @Test
+    public void checkLogOut() {
+        loginPage.open();
+        loginPage.login("standard_user", "secret_sauce");
+        productsPage.navigationPanel.openMenu();
+        productsPage.navigationPanel.logOut();
+        assertTrue(loginPage.isLoginFormVisible(), "После выхода не отображается форма входа на сайт");
+    }
 }
