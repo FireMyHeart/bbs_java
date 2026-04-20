@@ -42,7 +42,7 @@ public class ProductsTest extends BaseTest {
         for (String product : productsList) {
             assertTrue(productsPage.addToCartBtnIsVisible(product));
         }
-        assertTrue(productsPage.cartBadgeInvisibility());
+        productsPage.waitForCartBadgeToDisappear();
     }
 
     @Test
@@ -63,7 +63,7 @@ public class ProductsTest extends BaseTest {
         assertEquals(productsPage.counterValue(), "1");
         productsPage.navigationPanel.openMenu();
         productsPage.navigationPanel.resetAppState();
-        assertTrue(productsPage.cartBadgeInvisibility());
+        productsPage.waitForCartBadgeToDisappear();
         assertFalse(productsPage.removeBtnIsVisible(ITEM_NAME));
         /*
         вот из-за этого тест падает. Я думаю, что это баг. Потому что раз состояние корзины сбрасывается и в корзине
