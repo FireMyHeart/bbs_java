@@ -42,9 +42,9 @@ public class ProductsPage extends BasePage {
         driver.findElement(removeFromCartBtn).click();
     }
 
-    public String counterValue() {
+    public int counterValue() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(cartLinkBadge)).isDisplayed();
-        return driver.findElement(cartLinkBadge).getText();
+        return Integer.parseInt(driver.findElement(cartLinkBadge).getText());
     }
 
     public void waitForCartBadgeToDisappear() {
