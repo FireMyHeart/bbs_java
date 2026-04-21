@@ -47,14 +47,9 @@ public class ProductsPage extends BasePage {
         return driver.findElement(cartLinkBadge).getText();
     }
 
-    public boolean CartBadgeInvisibility() {
-        return wait.until(ExpectedConditions.invisibilityOfElementLocated(cartLinkBadge));
+    public void waitForCartBadgeToDisappear() {
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(cartLinkBadge));
     }
-
-    public void openCart() {
-        driver.findElement(cartLinkBadge).click();
-    }
-
     public String counterColour() {
         return driver.findElement(cartLinkBadge).getCssValue("background-color");
     }

@@ -34,4 +34,8 @@ public class LoginPage extends BasePage {
     public String getErrorMsgText() {
         return driver.findElement(errorMsg).getText();
     }
+
+    public boolean isLoginFormVisible() {
+        return driver.findElement(userField).isDisplayed() && driver.findElement(submitBtn).isDisplayed();
+    }
 }
