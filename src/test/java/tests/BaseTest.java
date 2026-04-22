@@ -18,8 +18,6 @@ public class BaseTest {
     LoginPage loginPage;
     ProductsPage productsPage;
     CartPage cartPage;
-    String user;
-    String password;
     protected List<String> productsList = List.of("Sauce Labs Onesie", "Sauce Labs Bike Light", "Sauce Labs Bolt T-Shirt");
 
     @BeforeMethod
