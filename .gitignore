@@ -3,4 +3,3 @@ target/
 build/
 *.iml
 *.xml
-src/main/
