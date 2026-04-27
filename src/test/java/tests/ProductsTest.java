@@ -22,7 +22,11 @@ public class ProductsTest extends BaseTest {
             assertTrue(productsPage.removeBtnIsVisible(product));
         }
         assertEquals(productsPage.counterValue(), 4);
-        assertEquals(productsPage.counterColour(), "rgba(226, 35, 26, 1)");
+        String counterColor = productsPage.counterColour();
+        assertTrue(
+                "rgba(226, 35, 26, 1)".equals(counterColor) || "rgb(226, 35, 26)".equals(counterColor),
+                "Цвет отличается: " + counterColor
+        );
     }
 
     @Test

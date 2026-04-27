@@ -50,6 +50,7 @@ public class ProductsPage extends BasePage {
     public void waitForCartBadgeToDisappear() {
         wait.until(ExpectedConditions.invisibilityOfElementLocated(cartLinkBadge));
     }
+
     public String counterColour() {
         return driver.findElement(cartLinkBadge).getCssValue("background-color");
     }
