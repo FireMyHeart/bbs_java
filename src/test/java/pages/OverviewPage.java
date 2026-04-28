@@ -4,38 +4,27 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import user.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CartPage extends BasePage {
+public class OverviewPage extends BasePage {
+    public static final double TAX_RATE = 0.08;
     private final By title = By.cssSelector("span.title");
-    private final By items = By.cssSelector("div.cart_item");
     private final By itemName = By.cssSelector("div[data-test='inventory-item-name']");
-    private final By checkoutBtn = By.cssSelector("button[id='checkout']");
+    private final By totalPrice = By.cssSelector("div[data-test='subtotal-label']");
+    private final By tax = By.cssSelector("div[data-test='tax-label']");
+    private final By total = By.cssSelector("div[data-test='total-label']");
+    private final By finishBtn = By.cssSelector("button[id='finish']");
     public static final String ITEM_PRICE =
             "//div[@class='cart_item_label' and .//div[@data-test='inventory-item-name' and text()='%s']]//div[@data-test='inventory-item-price']";
 
-
-    public CartPage(WebDriver driver) {
+    public OverviewPage(WebDriver driver) {
         super(driver);
     }
 
     public String getTitle() {
         return driver.findElement(title).getText();
-    }
-
-    public boolean itemsBlockIsVisible() {
-        return driver.findElement(items).isDisplayed();
-    }
-
-    public int itemsCount() {
-        return driver.findElements(itemName).size();
-    }
-
-    public String firstItemName() {
-        return driver.findElements(itemName).getFirst().getText();
     }
 
     public ArrayList<String> getProductsNames() {
@@ -53,12 +42,22 @@ public class CartPage extends BasePage {
         return Double.parseDouble(priceText.replace("$", "").trim());
     }
 
-    public void clickCheckoutBtn() {
-        driver.findElement(checkoutBtn).click();
+    public double getTotalPrice() {
+        String totalPriceText = driver.findElement(totalPrice).getText();
+        return Double.parseDouble(totalPriceText.replace("Item total: $", "").trim());
     }
 
-    public void checkoutWithUserData(CheckoutPage checkoutPage, User user) {
-        clickCheckoutBtn();
-        checkoutPage.fillCheckoutForm(user);
+    public double getTax() {
+        String taxText = driver.findElement(tax).getText();
+        return Double.parseDouble(taxText.replace("Tax: $", "").trim());
+    }
+
+    public double getTotal() {
+        String totalText = driver.findElement(total).getText();
+        return Double.parseDouble(totalText.replace("Total: $", "").trim());
+    }
+
+    public void clickFinishBtn() {
+        driver.findElement(finishBtn).click();
     }
 }

@@ -3,10 +3,19 @@ package user;
 public class User {
     private String login;
     private String password;
+    private String firstname;
+    private String lastname;
+    private String zipcode;
 
     public User(String login, String password) {
         this.login = login;
         this.password = password;
+    }
+
+    public User(String firstname, String lastname, String zipcode) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.zipcode = zipcode;
     }
 
     public String getPassword() {
@@ -15,5 +24,17 @@ public class User {
 
     public String getLogin() {
         return login;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public String getZipcode() {
+        return zipcode;
     }
 }

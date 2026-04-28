@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 public class ProductsPage extends BasePage {
     public static final String ADD_TO_CART_PATTERN = "//div[text()='%s']/ancestor::div[@data-test='inventory-item-description']//button[text()='Add to cart']";
     public static final String REMOVE_FROM_CART_PATTERN = "//div[text()='%s']/ancestor::div[@data-test='inventory-item-description']//button[text()='Remove']";
+    public static final String ITEM_PRICE = "//div[text()='%s']/ancestor::div[@class='inventory_item']//div[@data-test='inventory-item-price']";
     private final By pageTitle = By.cssSelector("[data-test='title']");
     private final By cartLinkBadge = By.cssSelector("span.shopping_cart_badge");
 
@@ -40,6 +41,12 @@ public class ProductsPage extends BasePage {
     public void removeFromCart(final String productName) {
         By removeFromCartBtn = By.xpath(REMOVE_FROM_CART_PATTERN.formatted(productName));
         driver.findElement(removeFromCartBtn).click();
+    }
+
+    public double getItemPrice(final String productName) {
+        By itemPrice = By.xpath(ITEM_PRICE.formatted(productName));
+        String priceText = wait.until(ExpectedConditions.visibilityOfElementLocated(itemPrice)).getText();
+        return Double.parseDouble(priceText.replace("$", "").trim());
     }
 
     public int counterValue() {
