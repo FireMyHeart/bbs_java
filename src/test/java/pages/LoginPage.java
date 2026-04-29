@@ -1,5 +1,7 @@
 package pages;
 
+import io.qameta.allure.Step;
+import io.qameta.allure.Allure;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import user.User;
@@ -14,28 +16,40 @@ public class LoginPage extends BasePage {
         super(driver);
     }
 
+    @Step("Перейти на страницу saucedemo.com")
     public void open() {
         driver.get(BASE_URL);
     }
 
+    @Step("Перейти на страницу: {url}")
     public void open(final String url) {
         driver.get(BASE_URL + url);
     }
 
+    @Step("Пройти авторизацию")
     public void login(User user) {
-        driver.findElement(userField).sendKeys(user.getLogin());
-        driver.findElement(passField).sendKeys(user.getPassword());
-        driver.findElement(submitBtn).click();
+        Allure.step("Заполнить поле Username: " + user.getLogin(), () ->
+                driver.findElement(userField).sendKeys(user.getLogin())
+        );
+        Allure.step("Заполнить поле Password: " + user.getPassword(), () ->
+                driver.findElement(passField).sendKeys(user.getPassword())
+        );
+        Allure.step("Нажать кнопку Login", () ->
+                driver.findElement(submitBtn).click()
+        );
     }
 
+    @Step("Проверить, что сообщение об ошибке отображается")
     public boolean isErrorMsgDisplayed() {
         return driver.findElement(errorMsg).isDisplayed();
     }
 
+    @Step("Получить текст сообщения об ошибке")
     public String getErrorMsgText() {
         return driver.findElement(errorMsg).getText();
     }
 
+    @Step("Проверить, что форма логина отображается")
     public boolean isLoginFormVisible() {
         return driver.findElement(userField).isDisplayed() && driver.findElement(submitBtn).isDisplayed();
     }

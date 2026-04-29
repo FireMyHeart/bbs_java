@@ -1,5 +1,6 @@
 package tests;
 
+import io.qameta.allure.*;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
@@ -8,16 +9,25 @@ import static user.UserFactory.withAdminPermission;
 import static user.UserFactory.withCheckoutData;
 
 public class CheckoutTest extends BaseTest {
+    @Epic("UI Automation")
+    @Feature("Checkout")
+    @Story("Переход на страницу Overview")
+    @Severity(SeverityLevel.CRITICAL)
+    @Owner("Kotikova Ann")
     @Test
     public void checkSwitchToOverviewPage() {
-        loginPage.open();
-        loginPage.login(withAdminPermission());
-        productsPage.addToCart(ITEM_NAME);
-        assertEquals(productsPage.counterValue(), 1);
-        productsPage.navigationPanel.openCart();
-        cartPage.clickCheckoutBtn();
-        checkoutPage.fillCheckoutForm(withCheckoutData());
-        checkoutPage.clickContinueBtn();
-        assertEquals(overviewPage.getTitle(), "Checkout: Overview");
+        Allure.step("Дойти до Checkout и заполнить данные", () -> {
+            loginPage.open();
+            loginPage.login(withAdminPermission());
+            productsPage.addToCart(ITEM_NAME);
+            assertEquals(productsPage.counterValue(), 1);
+            productsPage.navigationPanel.openCart();
+            cartPage.clickCheckoutBtn();
+            checkoutPage.fillCheckoutForm(withCheckoutData());
+            checkoutPage.clickContinueBtn();
+        });
+        Allure.step("Проверить переход на страницу Overview", () ->
+                assertEquals(overviewPage.getTitle(), "Checkout: Overview")
+        );
     }
 }

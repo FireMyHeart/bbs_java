@@ -37,4 +37,12 @@ public class User {
     public String getZipcode() {
         return zipcode;
     }
+
+    @Override
+    public String toString() {
+        if (login != null) {
+            return "User{login='" + login + "', password='" + password + "'}";
+        }
+        return "User{firstname='" + firstname + "', lastname='" + lastname + "', zipcode='" + zipcode + "'}";
+    }
 }
