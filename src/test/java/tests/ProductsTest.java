@@ -2,6 +2,7 @@ package tests;
 
 import io.qameta.allure.*;
 import org.testng.annotations.Test;
+import utils.AllureUtils;
 
 import static org.testng.Assert.*;
 import static pages.BasePage.ABOUT_URL;
@@ -104,6 +105,7 @@ public class ProductsTest extends BaseTest {
             productsPage.navigationPanel.resetAppState();
         });
         Allure.step("Проверить, что корзина очищена", () -> {
+            AllureUtils.takeScreenshot(driver);
             productsPage.waitForCartBadgeToDisappear();
             assertFalse(productsPage.removeBtnIsVisible(ITEM_NAME));
         });
