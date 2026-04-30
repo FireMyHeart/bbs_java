@@ -4,7 +4,7 @@ import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import user.User;
+import user.CheckoutUser;
 
 public class CheckoutPage extends BasePage {
     private final By title = By.cssSelector("span.title");
@@ -23,7 +23,7 @@ public class CheckoutPage extends BasePage {
     }
 
     @Step("Заполнить checkout-форму")
-    public void fillCheckoutForm(User user) {
+    public void fillCheckoutForm(CheckoutUser user) {
         Allure.step("Заполнить First Name: " + user.getFirstname(), () ->
                 driver.findElement(firstnameField).sendKeys(user.getFirstname())
         );

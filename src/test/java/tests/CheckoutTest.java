@@ -8,12 +8,12 @@ import static pages.BasePage.ITEM_NAME;
 import static user.UserFactory.withAdminPermission;
 import static user.UserFactory.withCheckoutData;
 
+@Epic("UI Automation")
+@Feature("Checkout")
+@Owner("Kotikova Ann")
 public class CheckoutTest extends BaseTest {
-    @Epic("UI Automation")
-    @Feature("Checkout")
     @Story("Переход на страницу Overview")
     @Severity(SeverityLevel.CRITICAL)
-    @Owner("Kotikova Ann")
     @Test
     public void checkSwitchToOverviewPage() {
         Allure.step("Дойти до Checkout и заполнить данные", () -> {

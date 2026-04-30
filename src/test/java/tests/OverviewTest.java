@@ -14,12 +14,12 @@ import static pages.OverviewPage.TAX_RATE;
 import static user.UserFactory.withAdminPermission;
 import static user.UserFactory.withCheckoutData;
 
+@Epic("UI Automation")
+@Feature("Overview")
+@Owner("Kotikova Ann")
 public class OverviewTest extends BaseTest {
-    @Epic("UI Automation")
-    @Feature("Overview")
     @Story("Проверка итоговой суммы заказа")
     @Severity(SeverityLevel.CRITICAL)
-    @Owner("Kotikova Ann")
     @Test
     public void checkOverviewPriceSummary() {
         Map<String, Double> expectedProductsPrices = new HashMap<>();
@@ -81,11 +81,8 @@ public class OverviewTest extends BaseTest {
         });
     }
 
-    @Epic("UI Automation")
-    @Feature("Overview")
     @Story("Завершение заказа и переход на Complete")
     @Severity(SeverityLevel.CRITICAL)
-    @Owner("Kotikova Ann")
     @Test
     public void checkSwitchToCompletePage() {
         Allure.step("Дойти до страницы Overview и нажать Finish", () -> {

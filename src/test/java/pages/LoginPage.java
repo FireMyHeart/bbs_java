@@ -1,10 +1,9 @@
 package pages;
 
 import io.qameta.allure.Step;
-import io.qameta.allure.Allure;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import user.User;
+import user.LoginUser;
 
 public class LoginPage extends BasePage {
     private final By userField = By.id("user-name");
@@ -26,17 +25,11 @@ public class LoginPage extends BasePage {
         driver.get(BASE_URL + url);
     }
 
-    @Step("Пройти авторизацию")
-    public void login(User user) {
-        Allure.step("Заполнить поле Username: " + user.getLogin(), () ->
-                driver.findElement(userField).sendKeys(user.getLogin())
-        );
-        Allure.step("Заполнить поле Password: " + user.getPassword(), () ->
-                driver.findElement(passField).sendKeys(user.getPassword())
-        );
-        Allure.step("Нажать кнопку Login", () ->
-                driver.findElement(submitBtn).click()
-        );
+    @Step("Авторизация пользователем {user.login}")
+    public void login(LoginUser user) {
+        driver.findElement(userField).sendKeys(user.getLogin());
+        driver.findElement(passField).sendKeys(user.getPassword());
+        driver.findElement(submitBtn).click();
     }
 
     @Step("Проверить, что сообщение об ошибке отображается")

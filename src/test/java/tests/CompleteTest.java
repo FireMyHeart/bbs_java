@@ -9,12 +9,12 @@ import static pages.BasePage.ITEM_NAME;
 import static user.UserFactory.withAdminPermission;
 import static user.UserFactory.withCheckoutData;
 
+@Epic("UI Automation")
+@Feature("Complete")
+@Owner("Kotikova Ann")
 public class CompleteTest extends BaseTest {
-    @Epic("UI Automation")
-    @Feature("Complete")
     @Story("Проверка страницы завершения заказа")
     @Severity(SeverityLevel.NORMAL)
-    @Owner("Kotikova Ann")
     @Test
     public void checkCompletePage() {
         Allure.step("Открыть сайт и авторизоваться", () -> {
@@ -38,11 +38,8 @@ public class CompleteTest extends BaseTest {
         });
     }
 
-    @Epic("UI Automation")
-    @Feature("Complete")
     @Story("Возврат на страницу товаров после заказа")
     @Severity(SeverityLevel.MINOR)
-    @Owner("Kotikova Ann")
     @Test
     public void checkSwitchToProductsPage() {
         Allure.step("Дойти до страницы Complete", () -> {

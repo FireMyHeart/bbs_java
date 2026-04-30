@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import user.User;
+import user.CheckoutUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +65,7 @@ public class CartPage extends BasePage {
     }
 
     @Step("Перейти на страницу Checkout и заполнить данные пользователя")
-    public void checkoutWithUserData(CheckoutPage checkoutPage, User user) {
+    public void checkoutWithUserData(CheckoutPage checkoutPage, CheckoutUser user) {
         clickCheckoutBtn();
         checkoutPage.fillCheckoutForm(user);
     }

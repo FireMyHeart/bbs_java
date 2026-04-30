@@ -11,12 +11,12 @@ import static org.testng.Assert.*;
 import static pages.BasePage.ITEM_NAME;
 import static user.UserFactory.withAdminPermission;
 
+@Epic("UI Automation")
+@Feature("Cart")
+@Owner("Kotikova Ann")
 public class CartTest extends BaseTest {
-    @Epic("UI Automation")
-    @Feature("Cart")
     @Story("Добавление товара в корзину")
     @Severity(SeverityLevel.CRITICAL)
-    @Owner("Kotikova Ann")
     @Test
     public void checkProductIsAdded() {
         Allure.step("Авторизоваться, добавить товар и открыть корзину", () -> {
@@ -34,11 +34,8 @@ public class CartTest extends BaseTest {
         });
     }
 
-    @Epic("UI Automation")
-    @Feature("Cart")
     @Story("Отображение списка товаров в корзине")
     @Severity(SeverityLevel.NORMAL)
-    @Owner("Kotikova Ann")
     @Test
     public void checkProductsNames() {
         Allure.step("Добавить несколько товаров и перейти в корзину", () -> {
@@ -60,11 +57,8 @@ public class CartTest extends BaseTest {
         });
     }
 
-    @Epic("UI Automation")
-    @Feature("Cart")
     @Story("Возврат на страницу товаров из меню")
     @Severity(SeverityLevel.MINOR)
-    @Owner("Kotikova Ann")
     @Test
     public void checkReturnToAllProductsPage() {
         Allure.step("Открыть корзину и перейти на страницу товаров", () -> {
@@ -79,11 +73,9 @@ public class CartTest extends BaseTest {
         );
     }
 
-    @Epic("UI Automation")
-    @Feature("Cart")
+
     @Story("Проверка цен товаров в корзине")
     @Severity(SeverityLevel.NORMAL)
-    @Owner("Kotikova Ann")
     @Test
     public void checkProductsPricesInCart() {
         Map<String, Double> expectedProductsPrices = new HashMap<>();
@@ -113,11 +105,8 @@ public class CartTest extends BaseTest {
         });
     }
 
-    @Epic("UI Automation")
-    @Feature("Cart")
     @Story("Переход на страницу Checkout")
     @Severity(SeverityLevel.CRITICAL)
-    @Owner("Kotikova Ann")
     @Test
     public void checkSwitchToCheckoutPage() {
         Allure.step("Добавить товар и перейти к оформлению", () -> {

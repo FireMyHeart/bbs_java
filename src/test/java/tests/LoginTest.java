@@ -3,18 +3,18 @@ package tests;
 import io.qameta.allure.*;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import user.User;
+import user.LoginUser;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 import static user.UserFactory.*;
 
+@Epic("UI Automation")
+@Feature("Authentication")
+@Owner("Kotikova Ann")
 public class LoginTest extends BaseTest {
-    @Epic("UI Automation")
-    @Feature("Authentication")
     @Story("Успешный вход пользователя")
     @Severity(SeverityLevel.BLOCKER)
-    @Owner("Kotikova Ann")
     @Test(description = "Авторизация существующего пользователя в системе", priority = 1)
     @TmsLink("bbs_java")
     @Issue("test17")
@@ -28,13 +28,10 @@ public class LoginTest extends BaseTest {
         );
     }
 
-    @Epic("UI Automation")
-    @Feature("Authentication")
     @Story("Обработка невалидных учетных данных")
     @Severity(SeverityLevel.NORMAL)
-    @Owner("Kotikova Ann")
     @Test(dataProvider = "incorrectData", priority = 3)
-    public void checkLockedOutLogin(User user, String errorMsg) {
+    public void checkLockedOutLogin(LoginUser user, String errorMsg) {
         Allure.step("Открыть страницу и выполнить вход с невалидными данными", () -> {
             loginPage.open();
             loginPage.login(user);
@@ -55,11 +52,8 @@ public class LoginTest extends BaseTest {
         };
     }
 
-    @Epic("UI Automation")
-    @Feature("Authentication")
     @Story("Выход из системы")
     @Severity(SeverityLevel.NORMAL)
-    @Owner("Kotikova Ann")
     @Test(priority = 2)
     public void checkLogOut() {
         Allure.step("Авторизоваться и открыть меню", () -> {
