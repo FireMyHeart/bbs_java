@@ -17,7 +17,6 @@ public class CartPage extends BasePage {
     public static final String ITEM_PRICE =
             "//div[@class='cart_item_label' and .//div[@data-test='inventory-item-name' and text()='%s']]//div[@data-test='inventory-item-price']";
 
-
     public CartPage(WebDriver driver) {
         super(driver);
     }
