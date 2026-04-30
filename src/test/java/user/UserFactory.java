@@ -32,4 +32,11 @@ public class UserFactory {
                 PropertyReader.getProperty("saucedemo.user"),
                 "");
     }
+
+    public static User withCheckoutData() {
+        return new User(
+                PropertyReader.getProperty("saucedemo.firstname"),
+                PropertyReader.getProperty("saucedemo.lastname"),
+                PropertyReader.getProperty("saucedemo.zipcode"));
+    }
 }

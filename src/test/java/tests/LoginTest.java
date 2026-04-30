@@ -6,22 +6,17 @@ import user.User;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
-import static user.UserFactory.withAdminPermission;
-import static user.UserFactory.withEmptyLogin;
-import static user.UserFactory.withEmptyPassword;
-import static user.UserFactory.withIncorrectPermission;
-import static user.UserFactory.withLockedPermission;
+import static user.UserFactory.*;
 
 public class LoginTest extends BaseTest {
-
-    @Test
+    @Test(description = "Авторизация существующего пользователя в системе", priority = 1)
     public void checkLogin() {
         loginPage.open();
         loginPage.login(withAdminPermission());
         assertEquals(productsPage.getTitle(), "Products");
     }
 
-    @Test(dataProvider = "incorrectData")
+    @Test(dataProvider = "incorrectData", priority = 3)
     public void checkLockedOutLogin(User user, String errorMsg) {
         loginPage.open();
         loginPage.login(user);
@@ -39,7 +34,7 @@ public class LoginTest extends BaseTest {
         };
     }
 
-    @Test
+    @Test(priority = 2)
     public void checkLogOut() {
         loginPage.open();
         loginPage.login(withAdminPermission());
