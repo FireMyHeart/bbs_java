@@ -1,27 +1,45 @@
 package tests;
 
+import io.qameta.allure.*;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import user.User;
+import user.LoginUser;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 import static user.UserFactory.*;
 
+@Epic("UI Automation")
+@Feature("Authentication")
+@Owner("Kotikova Ann")
 public class LoginTest extends BaseTest {
+    @Story("Успешный вход пользователя")
+    @Severity(SeverityLevel.BLOCKER)
     @Test(description = "Авторизация существующего пользователя в системе", priority = 1)
+    @TmsLink("bbs_java")
+    @Issue("test17")
     public void checkLogin() {
-        loginPage.open();
-        loginPage.login(withAdminPermission());
-        assertEquals(productsPage.getTitle(), "Products");
+        Allure.step("Открыть страницу логина и войти валидным пользователем", () -> {
+            loginPage.open();
+            loginPage.login(withAdminPermission());
+        });
+        Allure.step("Проверить переход на страницу Products", () ->
+            assertEquals(productsPage.getTitle(), "Products")
+        );
     }
 
+    @Story("Обработка невалидных учетных данных")
+    @Severity(SeverityLevel.NORMAL)
     @Test(dataProvider = "incorrectData", priority = 3)
-    public void checkLockedOutLogin(User user, String errorMsg) {
-        loginPage.open();
-        loginPage.login(user);
-        assertTrue(loginPage.isErrorMsgDisplayed(), "Сообщение об ошибке не появилось");
-        assertEquals(loginPage.getErrorMsgText(), errorMsg);
+    public void checkLockedOutLogin(LoginUser user, String errorMsg) {
+        Allure.step("Открыть страницу и выполнить вход с невалидными данными", () -> {
+            loginPage.open();
+            loginPage.login(user);
+        });
+        Allure.step("Проверить отображение корректного текста ошибки", () -> {
+            assertTrue(loginPage.isErrorMsgDisplayed(), "Сообщение об ошибке не появилось");
+            assertEquals(loginPage.getErrorMsgText(), errorMsg);
+        });
     }
 
     @DataProvider(name = "incorrectData")
@@ -34,12 +52,18 @@ public class LoginTest extends BaseTest {
         };
     }
 
+    @Story("Выход из системы")
+    @Severity(SeverityLevel.NORMAL)
     @Test(priority = 2)
     public void checkLogOut() {
-        loginPage.open();
-        loginPage.login(withAdminPermission());
-        productsPage.navigationPanel.openMenu();
-        productsPage.navigationPanel.logOut();
-        assertTrue(loginPage.isLoginFormVisible(), "После выхода не отображается форма входа на сайт");
+        Allure.step("Авторизоваться и открыть меню", () -> {
+            loginPage.open();
+            loginPage.login(withAdminPermission());
+            productsPage.navigationPanel.openMenu();
+        });
+        Allure.step("Выйти из системы и проверить форму логина", () -> {
+            productsPage.navigationPanel.logOut();
+            assertTrue(loginPage.isLoginFormVisible(), "После выхода не отображается форма входа на сайт");
+        });
     }
 }

@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -15,26 +16,32 @@ public class CompletePage extends BasePage {
         super(driver);
     }
 
+    @Step("Получить заголовок страницы Complete")
     public String getTitle() {
         return driver.findElement(title).getText();
     }
 
+    @Step("Получить заголовок успешного оформления")
     public String getCompleteHeader() {
         return driver.findElement(completeHeader).getText();
     }
 
+    @Step("Получить текст подтверждения заказа")
     public String getCompleteText() {
         return driver.findElement(completeText).getText();
     }
 
+    @Step("Нажать кнопку Back Home")
     public void clickBackHomeBtn() {
         driver.findElement(backHomeBtn).click();
     }
 
+    @Step("Проверить, что изображение подтверждения отображается")
     public boolean isDoneImageVisible() {
         return driver.findElement(doneImage).isDisplayed();
     }
 
+    @Step("Проверить, что бейдж корзины отсутствует")
     public boolean isCartLinkBadgeInvisible() {
         return driver.findElements(cartLinkBadge).isEmpty();
     }
