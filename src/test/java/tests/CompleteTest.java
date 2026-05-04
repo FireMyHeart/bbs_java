@@ -18,16 +18,18 @@ public class CompleteTest extends BaseTest {
     @Test
     public void checkCompletePage() {
         Allure.step("Открыть сайт и авторизоваться", () -> {
-            loginPage.open();
-            loginPage.login(withAdminPermission());
+            loginPage
+                    .open()
+                    .login(withAdminPermission());
         });
         Allure.step("Оформить заказ до страницы Complete", () -> {
             productsPage.addToCart(ITEM_NAME);
             assertEquals(productsPage.counterValue(), 1);
             productsPage.navigationPanel.openCart();
             cartPage.clickCheckoutBtn();
-            checkoutPage.fillCheckoutForm(withCheckoutData());
-            checkoutPage.clickContinueBtn();
+            checkoutPage
+                    .fillCheckoutForm(withCheckoutData())
+                    .clickContinueBtn();
             overviewPage.clickFinishBtn();
         });
         Allure.step("Проверить содержимое страницы Complete", () -> {
@@ -43,14 +45,16 @@ public class CompleteTest extends BaseTest {
     @Test
     public void checkSwitchToProductsPage() {
         Allure.step("Дойти до страницы Complete", () -> {
-            loginPage.open();
-            loginPage.login(withAdminPermission());
+            loginPage
+                    .open()
+                    .login(withAdminPermission());
             productsPage.addToCart(ITEM_NAME);
             assertEquals(productsPage.counterValue(), 1);
             productsPage.navigationPanel.openCart();
             cartPage.clickCheckoutBtn();
-            checkoutPage.fillCheckoutForm(withCheckoutData());
-            checkoutPage.clickContinueBtn();
+            checkoutPage
+                    .fillCheckoutForm(withCheckoutData())
+                    .clickContinueBtn();
             overviewPage.clickFinishBtn();
         });
         Allure.step("Вернуться на страницу Products", () -> {

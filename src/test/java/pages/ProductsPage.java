@@ -27,9 +27,11 @@ public class ProductsPage extends BasePage {
     }
 
     @Step("Добавить товар в корзину: {productName}")
-    public void addToCart(final String productName) {
+    public ProductsPage addToCart(final String productName) {
         By addToCartBtn = By.xpath(String.format(ADD_TO_CART_PATTERN, productName));
         driver.findElement(addToCartBtn).click();
+
+        return this;
     }
 
     @Step("Проверить, что кнопка Remove отображается для товара: {productName}")
@@ -45,9 +47,11 @@ public class ProductsPage extends BasePage {
     }
 
     @Step("Удалить товар из корзины: {productName}")
-    public void removeFromCart(final String productName) {
+    public ProductsPage removeFromCart(final String productName) {
         By removeFromCartBtn = By.xpath(REMOVE_FROM_CART_PATTERN.formatted(productName));
         driver.findElement(removeFromCartBtn).click();
+
+        return this;
     }
 
     @Step("Получить цену товара на странице Products: {productName}")
@@ -64,8 +68,10 @@ public class ProductsPage extends BasePage {
     }
 
     @Step("Подождать, пока бейдж корзины исчезнет")
-    public void waitForCartBadgeToDisappear() {
+    public ProductsPage waitForCartBadgeToDisappear() {
         wait.until(ExpectedConditions.invisibilityOfElementLocated(cartLinkBadge));
+
+        return this;
     }
 
     @Step("Получить цвет счетчика корзины")

@@ -60,13 +60,17 @@ public class CartPage extends BasePage {
     }
 
     @Step("Нажать кнопку Checkout")
-    public void clickCheckoutBtn() {
+    public CartPage clickCheckoutBtn() {
         driver.findElement(checkoutBtn).click();
+
+        return this;
     }
 
     @Step("Перейти на страницу Checkout и заполнить данные пользователя")
-    public void checkoutWithUserData(CheckoutPage checkoutPage, CheckoutUser user) {
+    public CartPage checkoutWithUserData(CheckoutPage checkoutPage, CheckoutUser user) {
         clickCheckoutBtn();
         checkoutPage.fillCheckoutForm(user);
+
+        return this;
     }
 }

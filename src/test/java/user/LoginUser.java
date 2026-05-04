@@ -1,21 +1,13 @@
 package user;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@AllArgsConstructor
+@Getter
 public class LoginUser {
     private final String login;
     private final String password;
-
-    public LoginUser(String login, String password) {
-        this.login = login;
-        this.password = password;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getLogin() {
-        return login;
-    }
 
     @Override
     public String toString() {

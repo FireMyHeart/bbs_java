@@ -65,7 +65,9 @@ public class OverviewPage extends BasePage {
     }
 
     @Step("Нажать кнопку Finish")
-    public void clickFinishBtn() {
+    public OverviewPage clickFinishBtn() {
         driver.findElement(finishBtn).click();
+
+        return this;
     }
 }

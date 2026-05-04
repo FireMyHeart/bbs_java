@@ -1,8 +1,8 @@
 package tests;
 
+import enums.TitleNaming;
 import io.qameta.allure.*;
 import org.testng.annotations.Test;
-import utils.AllureUtils;
 
 import static org.testng.Assert.*;
 import static pages.BasePage.ABOUT_URL;
@@ -18,8 +18,9 @@ public class ProductsTest extends BaseTest {
     @Test
     public void checkGoodsAdded() {
         Allure.step("Авторизоваться и добавить товары в корзину", () -> {
-            loginPage.open();
-            loginPage.login(withAdminPermission());
+            loginPage
+                    .open()
+                    .login(withAdminPermission());
             assertTrue(productsPage.titleIsVisible());
             productsPage.addToCart(ITEM_NAME);
             for (String product : productsList) {
@@ -45,8 +46,9 @@ public class ProductsTest extends BaseTest {
     @Test
     public void checkRemoveBtn() {
         Allure.step("Авторизоваться и добавить товары", () -> {
-            loginPage.open();
-            loginPage.login(withAdminPermission());
+            loginPage
+                    .open()
+                    .login(withAdminPermission());
             assertTrue(productsPage.titleIsVisible());
             for (String product : productsList) {
                 productsPage.addToCart(product);
@@ -72,14 +74,15 @@ public class ProductsTest extends BaseTest {
     @Test
     public void checkCartLink() {
         Allure.step("Добавить товар {ITEM_NAME} и перейти в корзину", () -> {
-            loginPage.open();
-            loginPage.login(withAdminPermission());
+            loginPage
+                    .open()
+                    .login(withAdminPermission());
             productsPage.addToCart(ITEM_NAME);
             assertEquals(productsPage.counterValue(), 1);
             productsPage.navigationPanel.openCart();
         });
         Allure.step("Проверить заголовок страницы корзины", () ->
-                assertEquals(cartPage.getTitle(), "Your Cart")
+                assertEquals(cartPage.getTitle(), TitleNaming.CART.getDisplayName())
         );
     }
 
@@ -88,15 +91,15 @@ public class ProductsTest extends BaseTest {
     @Test
     public void checkResetAppState() {
         Allure.step("Добавить товар и выполнить Reset App State", () -> {
-            loginPage.open();
-            loginPage.login(withAdminPermission());
+            loginPage
+                    .open()
+                    .login(withAdminPermission());
             productsPage.addToCart(ITEM_NAME);
             assertEquals(productsPage.counterValue(), 1);
             productsPage.navigationPanel.openMenu();
             productsPage.navigationPanel.resetAppState();
         });
         Allure.step("Проверить, что корзина очищена", () -> {
-            AllureUtils.takeScreenshot(driver);
             productsPage.waitForCartBadgeToDisappear();
             assertFalse(productsPage.removeBtnIsVisible(ITEM_NAME));
         });
@@ -107,8 +110,9 @@ public class ProductsTest extends BaseTest {
     @Test
     public void checkSwitchToAboutPage() {
         Allure.step("Авторизоваться и открыть страницу About через меню", () -> {
-            loginPage.open();
-            loginPage.login(withAdminPermission());
+            loginPage
+                    .open()
+                    .login(withAdminPermission());
             productsPage.navigationPanel.openMenu();
             productsPage.navigationPanel.openAboutPage();
         });
