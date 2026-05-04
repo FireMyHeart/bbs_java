@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.PropertyReader;
@@ -22,6 +23,7 @@ public class BasePage {
         this.navigationPanel = new NavigationPanel(driver, wait);
     }
 
+    @Step("Проверить текущий URL: {url}")
     public boolean isCurrentUrl(String url) {
         return Objects.equals(driver.getCurrentUrl(), url);
     }

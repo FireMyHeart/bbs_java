@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -20,29 +21,35 @@ public class NavigationPanel {
         this.wait = wait;
     }
 
+    @Step("Открыть боковое меню")
     public void openMenu() {
         driver.findElement(burgerMenuButton).click();
     }
 
+    @Step("Открыть корзину")
     public void openCart() {
         driver.findElement(cartLink).click();
     }
 
+    @Step("Открыть страницу All Items")
     public void openProductsPage() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(allItemsPage)).isDisplayed();
         driver.findElement(allItemsPage).click();
     }
 
+    @Step("Открыть страницу About")
     public void openAboutPage() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(aboutPage)).isDisplayed();
         driver.findElement(aboutPage).click();
     }
 
+    @Step("Выйти из аккаунта")
     public void logOut() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(logoutPage)).isDisplayed();
         driver.findElement(logoutPage).click();
     }
 
+    @Step("Сбросить состояние приложения")
     public void resetAppState() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(resetAppState)).isDisplayed();
         driver.findElement(resetAppState).click();
