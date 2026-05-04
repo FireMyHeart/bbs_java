@@ -3,38 +3,38 @@ package user;
 import utils.PropertyReader;
 
 public class UserFactory {
-    public static User withAdminPermission() {
-        return new User(
+    public static LoginUser withAdminPermission() {
+        return new LoginUser(
                 PropertyReader.getProperty("saucedemo.user"),
                 PropertyReader.getProperty("saucedemo.password"));
     }
 
-    public static User withLockedPermission() {
-        return new User(
+    public static LoginUser withLockedPermission() {
+        return new LoginUser(
                 PropertyReader.getProperty("saucedemo.locked_user"),
                 PropertyReader.getProperty("saucedemo.password"));
     }
 
-    public static User withIncorrectPermission() {
-        return new User(
+    public static LoginUser withIncorrectPermission() {
+        return new LoginUser(
                 PropertyReader.getProperty("saucedemo.incorrect_user"),
                 PropertyReader.getProperty("saucedemo.password"));
     }
 
-    public static User withEmptyLogin() {
-        return new User(
+    public static LoginUser withEmptyLogin() {
+        return new LoginUser(
                 "",
                 PropertyReader.getProperty("saucedemo.password"));
     }
 
-    public static User withEmptyPassword() {
-        return new User(
+    public static LoginUser withEmptyPassword() {
+        return new LoginUser(
                 PropertyReader.getProperty("saucedemo.user"),
                 "");
     }
 
-    public static User withCheckoutData() {
-        return new User(
+    public static CheckoutUser withCheckoutData() {
+        return new CheckoutUser(
                 PropertyReader.getProperty("saucedemo.firstname"),
                 PropertyReader.getProperty("saucedemo.lastname"),
                 PropertyReader.getProperty("saucedemo.zipcode"));

@@ -1,6 +1,7 @@
 package tests;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -23,6 +24,7 @@ public class BaseTest {
     protected List<String> productsList = List.of("Sauce Labs Onesie", "Sauce Labs Bike Light", "Sauce Labs Bolt T-Shirt");
 
     @Parameters({"browser"})
+    @Step("Подготовить браузер и открыть его с заданными параметрами")
     @BeforeMethod
     public void setup(@Optional("chrome") String browser) {
         if (browser.equalsIgnoreCase("chrome")) {
@@ -48,6 +50,7 @@ public class BaseTest {
         completePage = new CompletePage(driver);
     }
 
+    @Step("Закрыть браузер")
     @AfterMethod
     public void close() {
         driver.quit();
