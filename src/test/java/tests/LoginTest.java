@@ -1,5 +1,6 @@
 package tests;
 
+import enums.TitleNaming;
 import io.qameta.allure.*;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -20,11 +21,12 @@ public class LoginTest extends BaseTest {
     @Issue("test17")
     public void checkLogin() {
         Allure.step("Открыть страницу логина и войти валидным пользователем", () -> {
-            loginPage.open();
-            loginPage.login(withAdminPermission());
+            loginPage
+                    .open()
+                    .login(withAdminPermission());
         });
         Allure.step("Проверить переход на страницу Products", () ->
-            assertEquals(productsPage.getTitle(), "Products")
+            assertEquals(productsPage.getTitle(), TitleNaming.PRODUCTS.getDisplayName())
         );
     }
 
@@ -33,8 +35,9 @@ public class LoginTest extends BaseTest {
     @Test(dataProvider = "incorrectData", priority = 3)
     public void checkLockedOutLogin(LoginUser user, String errorMsg) {
         Allure.step("Открыть страницу и выполнить вход с невалидными данными", () -> {
-            loginPage.open();
-            loginPage.login(user);
+            loginPage
+                    .open()
+                    .login(user);
         });
         Allure.step("Проверить отображение корректного текста ошибки", () -> {
             assertTrue(loginPage.isErrorMsgDisplayed(), "Сообщение об ошибке не появилось");
@@ -57,8 +60,9 @@ public class LoginTest extends BaseTest {
     @Test(priority = 2)
     public void checkLogOut() {
         Allure.step("Авторизоваться и открыть меню", () -> {
-            loginPage.open();
-            loginPage.login(withAdminPermission());
+            loginPage
+                    .open()
+                    .login(withAdminPermission());
             productsPage.navigationPanel.openMenu();
         });
         Allure.step("Выйти из системы и проверить форму логина", () -> {

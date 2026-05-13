@@ -32,8 +32,10 @@ public class CompletePage extends BasePage {
     }
 
     @Step("Нажать кнопку Back Home")
-    public void clickBackHomeBtn() {
+    public CompletePage clickBackHomeBtn() {
         driver.findElement(backHomeBtn).click();
+
+        return this;
     }
 
     @Step("Проверить, что изображение подтверждения отображается")

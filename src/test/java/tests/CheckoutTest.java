@@ -1,5 +1,6 @@
 package tests;
 
+import enums.TitleNaming;
 import io.qameta.allure.*;
 import org.testng.annotations.Test;
 
@@ -17,17 +18,19 @@ public class CheckoutTest extends BaseTest {
     @Test
     public void checkSwitchToOverviewPage() {
         Allure.step("Дойти до Checkout и заполнить данные", () -> {
-            loginPage.open();
-            loginPage.login(withAdminPermission());
+            loginPage
+                    .open()
+                    .login(withAdminPermission());
             productsPage.addToCart(ITEM_NAME);
             assertEquals(productsPage.counterValue(), 1);
             productsPage.navigationPanel.openCart();
             cartPage.clickCheckoutBtn();
-            checkoutPage.fillCheckoutForm(withCheckoutData());
-            checkoutPage.clickContinueBtn();
+            checkoutPage
+                    .fillCheckoutForm(withCheckoutData())
+                    .clickContinueBtn();
         });
         Allure.step("Проверить переход на страницу Overview", () ->
-                assertEquals(overviewPage.getTitle(), "Checkout: Overview")
+                assertEquals(overviewPage.getTitle(), TitleNaming.OVERVIEW.getDisplayName())
         );
     }
 }

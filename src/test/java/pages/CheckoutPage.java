@@ -23,7 +23,7 @@ public class CheckoutPage extends BasePage {
     }
 
     @Step("Заполнить checkout-форму")
-    public void fillCheckoutForm(CheckoutUser user) {
+    public CheckoutPage fillCheckoutForm(CheckoutUser user) {
         Allure.step("Заполнить First Name: " + user.getFirstname(), () ->
                 driver.findElement(firstnameField).sendKeys(user.getFirstname())
         );
@@ -33,10 +33,14 @@ public class CheckoutPage extends BasePage {
         Allure.step("Заполнить Zip/Postal Code: " + user.getZipcode(), () ->
                 driver.findElement(zipCodeField).sendKeys(user.getZipcode())
         );
+
+        return this;
     }
 
     @Step("Нажать кнопку Continue")
-    public void clickContinueBtn() {
+    public CheckoutPage clickContinueBtn() {
         driver.findElement(continueBtn).click();
+
+        return this;
     }
 }

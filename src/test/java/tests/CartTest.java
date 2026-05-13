@@ -1,5 +1,6 @@
 package tests;
 
+import enums.TitleNaming;
 import io.qameta.allure.*;
 import org.testng.annotations.Test;
 
@@ -20,14 +21,15 @@ public class CartTest extends BaseTest {
     @Test
     public void checkProductIsAdded() {
         Allure.step("Авторизоваться, добавить товар и открыть корзину", () -> {
-            loginPage.open();
-            loginPage.login(withAdminPermission());
+            loginPage
+                    .open()
+                    .login(withAdminPermission());
             productsPage.addToCart(ITEM_NAME);
             assertEquals(productsPage.counterValue(), 1);
             productsPage.navigationPanel.openCart();
         });
         Allure.step("Проверить состав корзины", () -> {
-            assertEquals(cartPage.getTitle(), "Your Cart", "Название страницы не совпало");
+            assertEquals(cartPage.getTitle(), TitleNaming.CART.getDisplayName(), "Название страницы не совпало");
             assertTrue(cartPage.itemsBlockIsVisible());
             assertEquals(cartPage.itemsCount(), 1, "кол-во товаров в корзине не равно 1");
             assertEquals(cartPage.firstItemName(), ITEM_NAME, "Название товара отличается");
@@ -39,8 +41,9 @@ public class CartTest extends BaseTest {
     @Test
     public void checkProductsNames() {
         Allure.step("Добавить несколько товаров и перейти в корзину", () -> {
-            loginPage.open();
-            loginPage.login(withAdminPermission());
+            loginPage
+                    .open()
+                    .login(withAdminPermission());
             for (String product : productsList) {
                 productsPage.addToCart(product);
             }
@@ -62,8 +65,9 @@ public class CartTest extends BaseTest {
     @Test
     public void checkReturnToAllProductsPage() {
         Allure.step("Открыть корзину и перейти на страницу товаров", () -> {
-            loginPage.open();
-            loginPage.login(withAdminPermission());
+            loginPage
+                    .open()
+                    .login(withAdminPermission());
             productsPage.navigationPanel.openCart();
             productsPage.navigationPanel.openMenu();
             productsPage.navigationPanel.openProductsPage();
@@ -80,8 +84,9 @@ public class CartTest extends BaseTest {
     public void checkProductsPricesInCart() {
         Map<String, Double> expectedProductsPrices = new HashMap<>();
         Allure.step("Собрать цены на странице Products и добавить товары в корзину", () -> {
-            loginPage.open();
-            loginPage.login(withAdminPermission());
+            loginPage
+                    .open()
+                    .login(withAdminPermission());
             for (String product : productsList) {
                 double productPrice = productsPage.getItemPrice(product);
                 expectedProductsPrices.put(product, productPrice);
@@ -110,15 +115,16 @@ public class CartTest extends BaseTest {
     @Test
     public void checkSwitchToCheckoutPage() {
         Allure.step("Добавить товар и перейти к оформлению", () -> {
-            loginPage.open();
-            loginPage.login(withAdminPermission());
+            loginPage
+                    .open()
+                    .login(withAdminPermission());
             productsPage.addToCart(ITEM_NAME);
             assertEquals(productsPage.counterValue(), 1);
             productsPage.navigationPanel.openCart();
             cartPage.clickCheckoutBtn();
         });
         Allure.step("Проверить заголовок страницы Checkout", () ->
-                assertEquals(checkoutPage.getTitle(), "Checkout: Your Information")
+                assertEquals(checkoutPage.getTitle(), TitleNaming.CHECKOUT.getDisplayName())
         );
     }
 }

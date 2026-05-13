@@ -2,17 +2,21 @@ package tests;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import io.qameta.allure.Step;
+import io.qameta.allure.testng.AllureTestNg;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.testng.ITestContext;
 import org.testng.annotations.*;
 import pages.*;
+import utils.TestListener;
 
 import java.time.Duration;
 import java.util.List;
 
+@Listeners({AllureTestNg.class, TestListener.class})
 public class BaseTest {
     public WebDriver driver;
     LoginPage loginPage;
@@ -26,7 +30,7 @@ public class BaseTest {
     @Parameters({"browser"})
     @Step("Подготовить браузер и открыть его с заданными параметрами")
     @BeforeMethod
-    public void setup(@Optional("chrome") String browser) {
+    public void setup(@Optional("chrome") String browser, ITestContext context) {
         if (browser.equalsIgnoreCase("chrome")) {
             // System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
             ChromeOptions options = new ChromeOptions();
@@ -42,6 +46,7 @@ public class BaseTest {
             driver = new FirefoxDriver(options);
         }
 
+        context.setAttribute("driver", driver);
         loginPage = new LoginPage(driver);
         productsPage = new ProductsPage(driver);
         cartPage = new CartPage(driver);

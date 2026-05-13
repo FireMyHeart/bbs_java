@@ -16,20 +16,26 @@ public class LoginPage extends BasePage {
     }
 
     @Step("Перейти на страницу saucedemo.com")
-    public void open() {
+    public LoginPage open() {
         driver.get(BASE_URL);
+
+        return this;
     }
 
     @Step("Перейти на страницу: {url}")
-    public void open(final String url) {
+    public LoginPage open(final String url) {
         driver.get(BASE_URL + url);
+
+        return this;
     }
 
     @Step("Авторизация пользователем {user.login}")
-    public void login(LoginUser user) {
+    public LoginPage login(LoginUser user) {
         driver.findElement(userField).sendKeys(user.getLogin());
         driver.findElement(passField).sendKeys(user.getPassword());
         driver.findElement(submitBtn).click();
+
+        return this;
     }
 
     @Step("Проверить, что сообщение об ошибке отображается")

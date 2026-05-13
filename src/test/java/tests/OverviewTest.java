@@ -1,5 +1,6 @@
 package tests;
 
+import enums.TitleNaming;
 import io.qameta.allure.*;
 import org.testng.annotations.Test;
 
@@ -24,8 +25,9 @@ public class OverviewTest extends BaseTest {
     public void checkOverviewPriceSummary() {
         Map<String, Double> expectedProductsPrices = new HashMap<>();
         Allure.step("Подготовить корзину и перейти на страницу Overview", () -> {
-            loginPage.open();
-            loginPage.login(withAdminPermission());
+            loginPage
+                    .open()
+                    .login(withAdminPermission());
             for (String product : productsList) {
                 double productPrice = productsPage.getItemPrice(product);
                 expectedProductsPrices.put(product, productPrice);
@@ -34,8 +36,9 @@ public class OverviewTest extends BaseTest {
             assertEquals(productsPage.counterValue(), 3);
             productsPage.navigationPanel.openCart();
             cartPage.clickCheckoutBtn();
-            checkoutPage.fillCheckoutForm(withCheckoutData());
-            checkoutPage.clickContinueBtn();
+            checkoutPage
+                    .fillCheckoutForm(withCheckoutData())
+                    .clickContinueBtn();
         });
         Allure.step("Проверить цены товаров и итоговые суммы", () -> {
             List<String> actualProducts = overviewPage.getProductsNames();
@@ -86,18 +89,20 @@ public class OverviewTest extends BaseTest {
     @Test
     public void checkSwitchToCompletePage() {
         Allure.step("Дойти до страницы Overview и нажать Finish", () -> {
-            loginPage.open();
-            loginPage.login(withAdminPermission());
+            loginPage
+                    .open()
+                    .login(withAdminPermission());
             productsPage.addToCart(ITEM_NAME);
             assertEquals(productsPage.counterValue(), 1);
             productsPage.navigationPanel.openCart();
             cartPage.clickCheckoutBtn();
-            checkoutPage.fillCheckoutForm(withCheckoutData());
-            checkoutPage.clickContinueBtn();
+            checkoutPage
+                    .fillCheckoutForm(withCheckoutData())
+                    .clickContinueBtn();
             overviewPage.clickFinishBtn();
         });
         Allure.step("Проверить заголовок страницы Complete", () ->
-                assertEquals(completePage.getTitle(), "Checkout: Complete!")
+                assertEquals(completePage.getTitle(), TitleNaming.COMPLETE.getDisplayName())
         );
     }
 }
